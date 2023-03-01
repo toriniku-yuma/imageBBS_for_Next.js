@@ -1,6 +1,6 @@
 import { Post } from "@prisma/client";
 import Res from "./Res";
-import configValue from "../app/config";
+import configValue from "./config";
 
 type Props = {
     thread : Post;
