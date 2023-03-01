@@ -1,6 +1,9 @@
+import '../styles/thread.css'
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/emission.css"
 
-export default function App({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
+
+export default MyApp

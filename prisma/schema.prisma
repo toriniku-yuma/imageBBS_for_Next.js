@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Post {
+  id           Int              @id @default(autoincrement())
+  date         String           @default("")
+  content      String
+  image        String?
+  name         String           @default("名無しさん")
+  // user         User             @relation(fields: [userId],references: [id])
+  // userId       Int
+  children     Post[]           @relation("PostThreads")
+  parent       Post?            @relation("PostThreads",fields: [parentId],references: [id],onUpdate: Cascade,onDelete: Cascade)
+  parentId     Int?
+  updatedAt    DateTime         @updatedAt
+}
+
+model User {
+  id           Int              @id @default(autoincrement())
+  name         String           @default("tosiaki")
+  email        String           @default("")
+  // posts        Post[]
+}

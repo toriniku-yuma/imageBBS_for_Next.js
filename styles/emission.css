@@ -1,0 +1,1 @@
+.emission { background: radial-gradient(circle at 100%, Magenta, yellow, Cyan, Magenta) 0% center/200%; animation: emission 2s linear infinite;}@keyframes emission { 100% { background-position: 1000%;}}
