@@ -1,6 +1,6 @@
 import { Post } from "@prisma/client";
 import Res from "./Res";
-import config from "./config";
+import configValue from "../app/config";
 
 type Props = {
     thread : Post;
@@ -9,7 +9,7 @@ type Props = {
 
 function Thread(props:Props) {
     let maxRes =""
-    if (props.res.length >= config.maxRes){
+    if (props.res.length >= configValue.maxRes){
         maxRes = "レスが上限に達しました"
     }
     return(

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Header from './Header';
 import Thread from './Thread';
 import Write from './Write';
-import configValue from './config';
+import configValue from '../app/config';
 
 type Props = {
     testes: Post | undefined
