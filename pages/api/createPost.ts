@@ -1,6 +1,6 @@
 import prisma from "../../utils/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
-import configValue from "../../app/config";
+import configValue from "../../components/config";
 import fs from "node:fs/promises";
 import formidable from "formidable";
 import { env } from "node:process";

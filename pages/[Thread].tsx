@@ -3,9 +3,9 @@ import { Post } from '@prisma/client';
 import prisma from '../utils/prisma';
 import { useState } from 'react';
 import Header from './Header';
-import Thread from '../app/Thread';
+import Thread from '../components/Thread';
 import Write from './Write';
-import configValue from '../app/config';
+import configValue from '../components/config';
 
 type Props = {
     testes: Post | undefined

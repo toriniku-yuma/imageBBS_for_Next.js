@@ -1,4 +1,4 @@
-import Thread from '../app/Thread'
+import Thread from '../components/Thread'
 import Write from './Write'
 import Header from './Header';
 import prisma from '../utils/prisma';
