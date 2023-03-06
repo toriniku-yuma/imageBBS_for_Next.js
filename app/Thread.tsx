@@ -28,7 +28,7 @@ function Thread(props:Props) {
                     </div>
                 )
             })}
-            <div className="text-red-600 font-bold">{maxRes}</div>
+            <div className=" text-red-600 font-bold">{maxRes}</div>
         </div>
     );
 }

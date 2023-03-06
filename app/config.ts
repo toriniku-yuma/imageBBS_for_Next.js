@@ -1,7 +1,7 @@
 const configValue = {
     "name":"名無しさん",
     "maxRes":5,
-    "thresholdRes":10,
+    "thresholdRes":100,
     "deletePassword":"pass"
 }
 
