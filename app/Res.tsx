@@ -26,8 +26,8 @@ function Res(props:Props) {
         <span className="ml-5">No.{resItems.id}</span>
         {resItems.image &&(
             <div>
-                <a href={"/uploadImage/"+resItems.image}>
-                    <Image src={"/uploadImage/"+resItems.image} alt="レス画像" width={100} height={100}/>
+                <a href={"https://zbgqkixnzmwctzflctkn.supabase.co/storage/v1/object/public/photo/"+resItems.image} className="w-fit flex">
+                    <Image src={"https://zbgqkixnzmwctzflctkn.supabase.co/storage/v1/object/public/photo/"+resItems.image} alt="レス画像" width={100} height={100}/>
                 </a>
             </div>
         )}

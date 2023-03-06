@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import configValue from "../../app/config";
 import fs from "node:fs/promises";
 import formidable from "formidable";
+import { env } from "node:process";
+import { createClient } from "@supabase/supabase-js";
 
 type Body ={
     name :string
@@ -25,7 +27,8 @@ const isBody = (item:any):item is Body =>{
 }
 
 export default async function createPost(req:NextApiRequest,res:NextApiResponse) {
-    const form = new formidable.IncomingForm({uploadDir:"./public/uploadImage",keepExtensions:true});
+    const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL,env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+    const form = new formidable.IncomingForm({uploadDir:"/tmp",keepExtensions:true});
     form.parse(req,async function(err,fields,files) {
         if(err){
             console.log(err)
@@ -43,6 +46,14 @@ export default async function createPost(req:NextApiRequest,res:NextApiResponse)
                 if(!("newFilename" in imagedata)){
                     return
                 } 
+                const imageTemp = await fs.readFile(imagedata.filepath);
+                const { error } = await supabase.storage
+                .from('photo')
+                .upload(`/${imagedata.newFilename}`, imageTemp)
+                if (error) {
+                    console.log(error)
+                    return
+                }
                 image = imagedata.newFilename;
             }else{
                 image = null;
@@ -99,13 +110,26 @@ export default async function createPost(req:NextApiRequest,res:NextApiResponse)
                     }
                 })
                 if(deleteFirst?.image){
-                    fs.unlink("./public/uploadImage/"+deleteFirst.image)
-                }
-                deleteThreadRes.map((value)=>{
-                    if (value.image){
-                        fs.unlink("./public/uploadImage/"+value.image);
+                    const {error} = await supabase
+                    .storage
+                    .from("photo")
+                    .remove([deleteFirst.image])
+                    if(error){
+                        console.log(error)
                     }
-                })
+                }
+                await Promise.all(
+                    deleteThreadRes.map(async (value)=>{
+                    if (value.image){
+                        const {error} = await supabase
+                        .storage
+                        .from("photo")
+                        .remove([value.image])
+                        if(error){
+                            console.log(error)
+                        }
+                    }
+                }))
                 await prisma.post.delete({
                     where:{
                         id:deleteFirst?.id
